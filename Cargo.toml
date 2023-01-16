@@ -8,7 +8,7 @@ edition = "2021"
 [profile.dev]
 panic = "abort"
 
-[profile.releases]
+[profile.release]
 panic = "abort"
 
 [dependencies]
