@@ -2,15 +2,11 @@
 #![no_main]
 
 use core::panic::PanicInfo;
+mod vga_buffer;
 
 
-#[panic_handler]
-fn panic(_info: &PanicInfo) -> ! {
-    loop {}
-}
 
-
-static HELLO: &[u8] = b"Ya mom gay";
+static HELLO: &[u8] = b"ya mom gay!!!!!";
 
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
@@ -18,10 +14,17 @@ pub extern "C" fn _start() -> ! {
     for (i, &byte) in HELLO.iter().enumerate(){
         unsafe{
             *vga_buffer.offset(i as isize * 2) = byte;
-            *vga_buffer.offset(i as isize * 2) = 0xb;
+            *vga_buffer.offset(i as isize * 2 + 1) = 0xf;
         }
     }
     loop{}
 }
 
+
+
+
+#[panic_handler]
+fn panic(_info: &PanicInfo) -> ! {
+    loop {}
+}
 
